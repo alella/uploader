@@ -4,7 +4,10 @@ from setuptools import setup, find_packages
 
 setup(
     name = "uploader",
-    version = "1.0",
+    version = "1.1",
+    author = "Ashoka Lella",
+    author_email = "ashok.lella@gmail.com",
+    license = "MIT",
     package_dir = {'':'src'},
     packages = find_packages('src'),
     scripts = ['src/uploader'],
