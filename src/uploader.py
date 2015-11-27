@@ -1,7 +1,9 @@
 import os
+import re
 import logging
 import socket
 import argparse
+import subprocess
 
 from flask import *
 from werkzeug import secure_filename
@@ -25,6 +27,13 @@ def parse_args():
                         default=os.getcwd(),
                         help='Stores files in specified directory. Uses local directory by default')
 
+    parser.add_argument('-g',
+                        '--global',
+                        dest='global_url',
+                        action='store_true',
+                        default=False,
+                        help='Uses public url for uploading files')
+
     args = parser.parse_args()
     return args
 
@@ -40,6 +49,16 @@ def get_port(arg_port):
         
     return port
 
+def launch_global_url(port):
+    p = subprocess.Popen(['ngrok', '-log=stdout', str(port)], stdout=subprocess.PIPE)
+    while True:
+        line = p.stdout.readline()
+        if line:
+            if "Tunnel established at" in line:
+                url = re.findall(r"Tunnel established at (.*)",line)[0]
+                break
+    return url
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     print("Trying to fetch file...")
@@ -54,7 +73,9 @@ def upload():
 
 @app.route('/')
 def home():
-    print("Service opened in {0}".format(request.remote_addr))
+    if not app.config['isGlobal']:
+        print("Service opened in {0}".format(request.remote_addr))
+
     return """<form method=POST enctype=multipart/form-data action="/upload">
           <p><input type=file name=file>
              <input type=submit value=Upload>
@@ -65,8 +86,14 @@ if __name__ ==  "__main__":
     host_ip = socket.gethostbyname(socket.gethostname())
     port = get_port(args.port)
     app.config['UPLOAD_DIR'] = args.dir
-    
+    app.config['isGlobal'] = args.global_url
+
     if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        print("Started service on http://{0}:{1}".format(host_ip, port))
-        
+        if not app.config['isGlobal']:
+            print("Started service on http://{0}:{1}".format(host_ip, port))
+        else:
+            global_url = launch_global_url(port)
+            print("Started service on http://{0}:{1} on local network".format(host_ip, port))
+            print("Public url is {0}".format(global_url))
+
     app.run(host='0.0.0.0', debug=True, port=port)
