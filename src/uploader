@@ -41,15 +41,23 @@ def parse_args():
 
 def get_port(arg_port):
     if not arg_port:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(("",0))
-        s.listen(1)
-        port = s.getsockname()[1]
-        s.close()
+        if os.path.exists('./.uploader_tmp'):
+            port = open('.uploader_tmp').read()
+            os.remove('./.uploader_tmp')
+        else:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.bind(("",0))
+            s.listen(1)
+            port = s.getsockname()[1]
+            s.close()
     else:
         port = int(arg_port)
         
     return port
+
+def write_port(port):
+    with open('./.uploader_tmp', 'w') as w:
+        w.write(str(port))
 
 def launch_global_url(port):
     p = subprocess.Popen(['ngrok', '-log=stdout', str(port)], stdout=subprocess.PIPE)
@@ -97,5 +105,7 @@ if __name__ ==  "__main__":
             global_url = launch_global_url(port)
             print("Started service on http://{0}:{1} on local network".format(host_ip, port))
             print("Public url is {0}".format(global_url))
+    else:
+        write_port(port)
 
     app.run(host='0.0.0.0', debug=True, port=port)
