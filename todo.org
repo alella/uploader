@@ -1,5 +1,8 @@
 * TODO Pick a random port
 ** sock.bind(('', 0))
 * TODO Add readme
+* TODO Add setup.py
+* TODO Make package installable
+* TODO Add support for public urls using ngrok: python-ngrok:github
 * DONE Create git repo
 
