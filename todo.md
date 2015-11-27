@@ -1,8 +1,7 @@
-- Pick a random port
-  - sock.bind(('', 0))
+- ~~Pick a random port~~
 - Add readme
 - Add setup.py
 - Make package installable
-- Add support for public urls using ngrok: python-ngrok:github
+- ~~Add support for public urls using ngrok~~
 - ~~Create git repo~~
 
