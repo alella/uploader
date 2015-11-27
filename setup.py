@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "uploader",
-    version = "0.2",
+    version = "1.0",
     package_dir = {'':'src'},
     packages = find_packages('src'),
     scripts = ['src/uploader'],

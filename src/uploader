@@ -2,6 +2,7 @@
 
 import os
 import re
+import sys
 import logging
 import socket
 import argparse
@@ -55,12 +56,35 @@ def get_port(arg_port):
         
     return port
 
+def exists(program):
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
 def write_port(port):
     with open('./.uploader_tmp', 'w') as w:
         w.write(str(port))
 
 def launch_global_url(port):
+    if not exists('ngrok'):
+        print("Unable to find ngrok binary.")
+        print("Public URLs cannot be used without ngrok (https://ngrok.com)")
+        sys.exit(0)
+        
     p = subprocess.Popen(['ngrok', '-log=stdout', str(port)], stdout=subprocess.PIPE)
+    
     while True:
         line = p.stdout.readline()
         if line:
