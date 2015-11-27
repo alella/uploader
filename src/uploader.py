@@ -7,7 +7,6 @@ from flask import *
 from werkzeug import secure_filename
 
 app = Flask(__name__)
-app.config['UPLOAD_DIR'] = os.getcwd()
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -18,7 +17,13 @@ def parse_args():
                         '--port',
                         dest='port',
                         default=False,
-                        help='Host service on this port')
+                        help='Host service on this port if specified else, picks up a random port')
+    
+    parser.add_argument('-d',
+                        '--dir',
+                        dest='dir',
+                        default=os.getcwd(),
+                        help='Stores files in specified directory. Uses local directory by default')
 
     args = parser.parse_args()
     return args
@@ -59,6 +64,7 @@ if __name__ ==  "__main__":
     args = parse_args()
     host_ip = socket.gethostbyname(socket.gethostname())
     port = get_port(args.port)
+    app.config['UPLOAD_DIR'] = args.dir
     
     if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
         print("Started service on http://{0}:{1}".format(host_ip, port))
