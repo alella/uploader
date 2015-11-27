@@ -1,0 +1,5 @@
+* TODO Pick a random port
+** sock.bind(('', 0))
+* TODO Add readme
+* DONE Create git repo
+
