@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "uploader",
-    version = "1.1",
+    version = "1.2",
     author = "Ashoka Lella",
     author_email = "ashok.lella@gmail.com",
     license = "MIT",
