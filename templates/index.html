@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body style="background: #0C0C0C; color: #878787">
+    <center><div style="margin-top: 20px" class="dropzone" id="dropzone">Drop files here to upload</div>
+    <table cellspacing='10' id="status" style="margin-top: 100px"></table></center>
+    <script>
+      (function() {
+      var dropzone = document.getElementById('dropzone');
+
+      var upload = function(file, file_index){
+        var formData = new FormData(),
+            xhr = new XMLHttpRequest(),
+            canvid = "canv"+String(file_index),
+            statusid = "status"+String(file_index);
+      
+      filerow = document.createElement("tr");
+      tdpbr = document.createElement("td");
+      tdsts = document.createElement("td");
+      tdfnm = document.createElement("td");
+
+      tdfnm.setAttribute("align", "right")
+      tdsts.setAttribute("id", statusid)
+      tdfnm.innerHTML = file.name
+      
+      progressbar = document.createElement("canvas");
+      progressbar.setAttribute("id", canvid);
+      progressbar.setAttribute("width", "10px");
+      progressbar.setAttribute("height", "2px");
+      progressbar.setAttribute("style", "background:#107187");
+
+      tdpbr.appendChild(progressbar);
+      filerow.appendChild(tdfnm);
+      filerow.appendChild(tdsts);
+      filerow.appendChild(tdpbr);
+      document.getElementById("status").appendChild(filerow);
+
+      
+      formData.append('file[]', file);
+
+      xhr.upload.addEventListener("progress", function(evt){
+      if (evt.lengthComputable) {
+      evt.id = String(file_index);
+      var percentComplete = evt.loaded / evt.total;
+	percentComplete = parseInt(percentComplete * 100);
+      document.getElementById("canv"+evt.id).setAttribute("width", String(percentComplete*3)+"px");
+      document.getElementById("status"+evt.id).innerHTML= String(percentComplete)+"%";
+      }
+      })
+		    
+        xhr.open('POST', '/upload');
+        xhr.send(formData);
+      }
+      
+      dropzone.ondrop = function(e){
+      this.className = 'dropzone';
+      document.getElementById("status").innerHTML="";
+      for(i=0; i<e.dataTransfer.files.length; i=i+1){
+					      upload(e.dataTransfer.files[i],i);
+					      }
+					      this.style.visibility = "hidden";
+					      this.style.height = "100px";
+		    return false;
+      }
+      
+      dropzone.ondragover = function(){
+        this.className = 'dropzone dragover'
+        return false;
+      }
+
+      dropzone.ondragleave = function(){
+        this.className = 'dropzone'
+        return false;
+      }
+      
+      }());
+    </script>
+  </body>
+</html>
