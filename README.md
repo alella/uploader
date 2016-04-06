@@ -15,9 +15,9 @@ Start the service
 $ uploader
 Started service on http://192.168.1.143:46186
 ```
-you should be now able to open the url from any system in the local network to upload files using the mentioned link.
+you should be now able to open the url from any system in the local network to upload files using the mentioned link. Simply drag and drop files to upload.
 
-![](http://s23.postimg.org/8enu1k8vf/2015_11_28_031853_307x35_scrot.png)
+![](http://s29.postimg.org/8j394m447/dropfiles.png)
 
 Public urls can also be generated provided [ngrok](https://ngrok.com/) is installed.
 
