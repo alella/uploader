@@ -2,4 +2,4 @@
 venv
 build
 dist
-src/uploader.egg-info
+uploader.egg-info
