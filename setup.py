@@ -4,13 +4,14 @@ from setuptools import setup, find_packages
 
 setup(
     name = "uploader",
-    version = "1.2",
+    version = "2.0.0",
     author = "Ashoka Lella",
     author_email = "ashok.lella@gmail.com",
     license = "MIT",
-    package_dir = {'':'src'},
-    packages = find_packages('src'),
-    scripts = ['src/uploader'],
+    packages = find_packages(),
+    include_package_data=True,
+    scripts = ['uploader/scripts/uploader'],
+    package_data={"uploader": ['templates/*']},
     install_requires = [
         "Flask",
         "itsdangerous",
