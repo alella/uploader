@@ -61,7 +61,7 @@ def get_port(arg_port):
     else:
         port = arg_port
         
-    return port
+    return int(port)
 
 def exists(program):
     def is_exe(fpath):
