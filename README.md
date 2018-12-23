@@ -22,10 +22,9 @@ You should be now able to open the url from any system in the local network to u
 
 ![](https://raw.githubusercontent.com/alella/uploader/master/demo.gif)
 
-Public urls can also be generated provided [ngrok](https://ngrok.com/) is installed.
 
 ```
-usage: uploader [-h] [-p PORT] [-d DIR] [-g]
+usage: uploader [-h] [-p PORT] [-d DIR]
 
 Hosts temporary service to upload files.
 
