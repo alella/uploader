@@ -20,7 +20,7 @@ Destination dir: /tmp
 ```
 You should be now able to open the url from any system in the local network to upload files using the mentioned link. Simply drag and drop files to upload.
 
-![](https://raw.githubusercontent.com/alella/uploader/master/screenshot.png)
+![](https://raw.githubusercontent.com/alella/uploader/master/demo.gif)
 
 Public urls can also be generated provided [ngrok](https://ngrok.com/) is installed.
 
