@@ -13,11 +13,14 @@ pip install git+git://github.com/alella/uploader
 Start the service
 ```
 $ uploader
-Started service on http://192.168.1.143:46186
+lo: http://127.0.0.1:5050
+wlp58s0: http://192.168.1.8:5050
+Destination dir: /tmp
+...
 ```
-you should be now able to open the url from any system in the local network to upload files using the mentioned link. Simply drag and drop files to upload.
+You should be now able to open the url from any system in the local network to upload files using the mentioned link. Simply drag and drop files to upload.
 
-![](http://s29.postimg.org/8j394m447/dropfiles.png)
+![](https://raw.githubusercontent.com/alella/uploader/master/screenshot.png)
 
 Public urls can also be generated provided [ngrok](https://ngrok.com/) is installed.
 
@@ -32,5 +35,4 @@ optional arguments:
                         a random port
   -d DIR, --dir DIR     Stores files in specified directory. Uses local
                         directory by default
-  -g, --global          Uses public url for uploading files
 ```

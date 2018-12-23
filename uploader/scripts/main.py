@@ -115,5 +115,6 @@ if __name__ == "__main__":
     app.config['UPLOAD_DIR'] = args.dir
 
     print_ip_sockets(port)
+    print "Destination dir: {0}".format(args.dir)
 
     app.run(host='0.0.0.0', debug=False, port=port)
