@@ -3,22 +3,23 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "uploader",
-    version = "2.1.1",
-    author = "Ashoka Lella",
-    author_email = "ashok.lella@gmail.com",
-    license = "MIT",
-    packages = find_packages(),
+    name="uploader",
+    version="3.0.0",
+    author="Ashoka Lella",
+    author_email="ashok.lella@gmail.com",
+    license="MIT",
+    packages=find_packages(),
     include_package_data=True,
-    scripts = ['uploader/scripts/uploader'],
+    scripts=['uploader/scripts/uploader'],
     package_data={"uploader": ['templates/*']},
-    install_requires = [
+    install_requires=[
         "Flask",
         "itsdangerous",
         "Jinja2",
         "MarkupSafe",
         "uploader",
         "Werkzeug",
-        "wheel"
+        "wheel",
+        "netifaces"
     ]
 )

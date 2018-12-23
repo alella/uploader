@@ -1,0 +1,8 @@
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+uploader
+Werkzeug
+wheel
+netifaces
